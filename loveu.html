@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Bhavya's Website</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #8a4699; /* Purple background */
+      overflow: hidden;
+      display: flex;
+      align-items: center; /* Center vertically */
+      justify-content: center; /* Center horizontally */
+      height: 100vh; /* Ensure full viewport height */
+      flex-direction: column; /* Stack elements vertically */
+      color: #FFB7C5; /* Pink text color */
+    }
+    h1 {
+      font-family: Arial, sans-serif;
+      font-size: 36px;
+      position: relative;
+      z-index: 1;
+      text-align: center; /* Center the text */
+    }
+    .heart-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .heart {
+      position: absolute;
+      font-size: 24px; /* Set font size */
+      z-index: 0;
+      animation: fall 4s linear infinite;
+      color: #FF5173; /* Pink heart color */
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(-20%);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(120%);
+        opacity: 1;
+      }
+    }
+    .fade {
+      animation: fadeOut 1s forwards;
+    }
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+    .question-container {
+      text-align: center; /* Center the question */
+      margin-top: 20px; /* Add some space between the text and the input box */
+    }
+    input[type="text"] {
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      background-color: #8a4699; /* Purple background */
+      color: #FFB7C5; /* Pink text color */
+      margin-bottom: 10px; /* Add some space between the input box and the button */
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #FF5173; /* Pink background color */
+      color: #FFB7C5; /* Pink text color */
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ff7eb9; /* Lighter pink on hover */
+    }
+    .options {
+      display: none;
+      margin-top: 50px;
+      text-align: center; /* Center the options */
+    }
+    .option {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #FF5173; /* Pink background color */
+      color: #FFB7C5; /* Pink text color */
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+    .option:last-child {
+      margin-bottom: 0;
+    }
+    .bottom-text {
+      position: absolute;
+      bottom: 10px;
+      color: #F147F8; /* Pink text color */
+      text-align: center; /* Center the text */
+    }
+  </style>
+</head>
+<body>
+  <h1 id="mainText">Hii bhavya!!</h1> <!-- Text placed inside body -->
+  <div class="heart-container">
+    <!-- Generate hearts -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const numHearts = 50;
+        const heartsContainer = document.querySelector('.heart-container');
+        for (let i = 0; i < numHearts; i++) {
+          const heart = document.createElement('div');
+          heart.classList.add('heart');
+          heart.innerHTML = '💗'; // Pink heart emoji
+          heart.style.left = `${Math.random() * 100}vw`;
+          heart.style.top = `${Math.random() * 100}vh`;
+          heart.style.animationDelay = `${Math.random() * 4}s`;
+          heartsContainer.appendChild(heart);
+        }
+      });
+    </script>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      let clickHandled = false;
+
+      document.body.addEventListener('click', function() {
+        if (!clickHandled) {
+          clickHandled = true;
+
+          const mainText = document.getElementById('mainText');
+          mainText.classList.add('fade');
+          setTimeout(function() {
+            mainText.textContent = "Let's ask my honeybun some questions now";
+            mainText.classList.remove('fade');
+            setTimeout(function() {
+              const questionContainer = document.createElement('div');
+              questionContainer.classList.add('question-container');
+              mainText.parentNode.insertBefore(questionContainer, mainText.nextSibling);
+
+              const questionText = document.createElement('p');
+              questionText.textContent = "What is my favorite car? [Hope you know the spelling babe]";
+              questionContainer.appendChild(questionText);
+
+              const inputBox = document.createElement('input');
+              inputBox.type = 'text';
+              inputBox.placeholder = 'Enter your answer';
+              inputBox.style.backgroundColor = 'transparent'; /* Make the input box transparent */
+              questionContainer.appendChild(inputBox);
+
+              const submitButton = document.createElement('button');
+              submitButton.textContent = 'I love you Bhavya ❤️';
+              submitButton.style.backgroundColor = '#FF5173'; // Pink background color
+              submitButton.style.color = '#FFB7C5'; // Pink text color
+              submitButton.style.border = 'none';
+              submitButton.style.borderRadius = '5px';
+              submitButton.style.cursor = 'pointer';
+              submitButton.addEventListener('click', function() {
+                const ans = inputBox.value.toLowerCase();
+                if (ans === "koenigsegg") {
+                  questionText.textContent = "What is my favorite color?";
+                  inputBox.value = ''; // Clear previous answer
+                  inputBox.placeholder = 'Enter your answer';
+                  submitButton.textContent = 'I love you Bhavya ❤️';
+                  submitButton.removeEventListener('click', this); // Remove previous event listener
+
+                  submitButton.addEventListener('click', function() {
+                    const ans = inputBox.value.toLowerCase();
+                    if (ans === "green") {
+                      questionText.textContent = "What day did we first kiss?";
+                      inputBox.value = ''; // Clear previous answer
+                      inputBox.placeholder = 'Enter your answer';
+                      submitButton.textContent = 'I love you Bhavya ❤️';
+                      submitButton.removeEventListener('click', this); // Remove previous event listener
+
+                      submitButton.addEventListener('click', function() {
+                        const ans = inputBox.value.toLowerCase();
+                        if (ans === "24 nov") {
+                          questionText.textContent = "What is my birthdate?";
+                          inputBox.value = ''; // Clear previous answer
+                          inputBox.placeholder = 'Enter your answer';
+                          submitButton.textContent = 'I love you Bhavya ❤️';
+                          submitButton.removeEventListener('click', this); // Remove previous event listener
+
+                          submitButton.addEventListener('click', function() {
+                            const ans = inputBox.value;
+                            if (ans === "24/11/2006") {
+                              questionText.textContent = "What is your birthdate?";
+                              inputBox.value = ''; // Clear previous answer
+                              inputBox.placeholder = 'Enter your answer';
+                              submitButton.textContent = 'I love you Bhavya ❤️';
+                              submitButton.removeEventListener('click', this); // Remove previous event listener
+
+                              submitButton.addEventListener('click', function() {
+                                const ans = inputBox.value;
+                                if (ans === "13/10/2005") {
+                                  questionText.textContent = "Who do I love most?";
+                                  inputBox.value = ''; // Clear previous answer
+                                  inputBox.placeholder = 'Enter your answer';
+                                  submitButton.textContent = 'I love you Bhavya ❤️';
+                                  submitButton.removeEventListener('click', this); // Remove previous event listener
+
+                                  submitButton.addEventListener('click', function() {
+                                    const ans = inputBox.value.toLowerCase();
+                                    if (ans === "bhavya") {
+                                      questionText.textContent = "How much do we love each other?";
+                                      inputBox.value = ''; // Clear previous answer
+                                      inputBox.placeholder = 'Enter your answer';
+                                      submitButton.textContent = 'I love you Bhavya ❤️';
+                                      submitButton.removeEventListener('click', this); // Remove previous event listener
+
+                                      submitButton.addEventListener('click', function() {
+                                        const ans = inputBox.value.toLowerCase();
+                                        if (ans === "infinity") {
+                                          setTimeout(function() {
+                                            mainText.textContent = '';
+                                            setTimeout(function() {
+                                              mainText.textContent = "Great babe";
+                                              setTimeout(function() {
+                                                mainText.textContent = "Since you answered all the questions correctly, honey, you deserve something very special. But since I cannot wrap my hands around you and give you 10,000 kisses, here is a poem I wrote at 3:40. Hope you enjoy it :)";
+                                                setTimeout(function() {
+                                                  const poemText = document.createElement('p');
+                                                  poemText.textContent = `In your eyes, I see the stars,\nGuiding us through life's memoirs.\nHand in hand, we'll walk this road,\nLove's sweet embrace our only code.\n\nYour smile, a beacon in the night,\nFilling my world with pure delight.\nWith every whisper of the wind,\nOur love, a tale forever twinned.\n\nIn the language of our hearts,\nOur love speaks, never departs.\nLike a flower craves the sun's warm glow,\nWith you, forever, I'll gladly grow.\n\nYour touch, a gentle breeze so kind,\nCalms the chaos of my mind.\nIn your arms, I find my rest,\nWhere love blooms, forever blessed.\n\nTogether, we'll dance beneath the moon,\nIn sync with love's sweet tune.\nForever bound, our hearts entwined,\nIn your love, my solace, I find`;
+                                                  poemText.style.color = '#FFB7C5'; // Pink poem color
+                                                  mainText.parentNode.insertBefore(poemText, mainText.nextSibling);
+
+                                                  // Add bottom text
+                                                  const bottomText = document.createElement('div');
+                                                  bottomText.classList.add('bottom-text');
+                                                  bottomText.innerHTML = "<p>I LOVE U A LOT BHAVYA</p><p>FROM SARTHU</p>";
+                                                  document.body.appendChild(bottomText);
+                                                }, 6000); // Display the poem for 6 seconds
+                                              }, 3000); // Delay before displaying the poem
+                                            }, 3000); // Delay before showing "Great babe"
+                                          }, 3000); // Delay before clearing the text
+                                        } else {
+                                          questionText.textContent = "Oops! Honey, looks like you entered something wrong :(";
+                                        }
+                                      });
+                                    } else {
+                                      questionText.textContent = "Oops! Honey, looks like you entered something wrong :(";
+                                    }
+                                  });
+                                } else {
+                                  questionText.textContent = "Oops! Honey, looks like you entered something wrong :(";
+                                }
+                              });
+                            } else {
+                              questionText.textContent = "Oops! Honey, looks like you entered something wrong :(";
+                            }
+                          });
+                        } else {
+                          questionText.textContent = "Oops! Honey, looks like you entered something wrong :(";
+                        }
+                      });
+                    } else {
+                      questionText.textContent = "Oops! Honey, looks like you entered something wrong :(";
+                    }
+                  });
+                } else {
+                  questionText.textContent = "Oops! Honey, looks like you entered something wrong :(";
+                }
+              });
+              questionContainer.appendChild(inputBox);
+              questionContainer.appendChild(submitButton);
+            }, 1000); // Delay before displaying next question
+          }, 1000); // Delay before fading out
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
